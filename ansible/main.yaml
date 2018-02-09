@@ -1,0 +1,15 @@
+---
+- name: Install server components
+  hosts: all
+  remote_user: vagrant
+  become: yes
+  become_method: sudo
+
+  roles:
+    - python
+    - nginx
+    - postgres
+    - mysql
+    - redis
+    - app
+

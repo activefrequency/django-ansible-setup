@@ -1,0 +1,14 @@
+---
+- name: Install pip
+  apt: name=python-pip state=present
+
+- name: Upgrade pip
+  pip: name=pip
+
+- name: Install foreman
+  apt: name=ruby-foreman state=present
+
+- name: Install python tools
+  pip:
+    name: virtualenv
+

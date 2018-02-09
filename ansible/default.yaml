@@ -1,0 +1,11 @@
+user: django
+hostname: django.local
+ip: 192.168.33.50
+
+app_dir: /srv/app
+python_version: 3
+
+dbname: myapp
+dbuser: myapp
+dbpassword: myapp
+

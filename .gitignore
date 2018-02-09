@@ -1,0 +1,5 @@
+app/
+*.py
+.env
+*.log
+.vagrant/
