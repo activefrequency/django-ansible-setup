@@ -1,0 +1,48 @@
+---
+- name: App user
+  user: name={{ config.user }}
+
+- name: Base directory
+  file:
+    path: "{{ config.app_dir }}"
+    owner: "{{ config.user }}"
+    group: "{{ config.user }}"
+    state: directory
+
+- name: Releases directory
+  file:
+    path: "{{ config.app_dir }}/releases"
+    owner: "{{ config.user }}"
+    group: "{{ config.user }}"
+    state: directory
+
+- name: Releases directory
+  file:
+    src: /vagrant/app
+    dest: "{{ config.app_dir }}/releases/current"
+    state: link
+
+#    - name: Releases directory
+#      file:
+#        path: "{{ config.app_dir }}/releases/current"
+#        owner: {{ config.user }}
+#        group: {{ config.user }}
+#        state: directory
+
+- name: Systemd service file
+  template:
+    src: app.service
+    dest: /etc/systemd/system/app.service
+  notify: restart app
+
+- name: Symlink nginx config
+  file:
+    src: /etc/nginx/sites-available/default.conf
+    dest: /etc/nginx/sites-enabled/default.conf
+    state: link
+
+- name: App virtualenv
+  command: virtualenv {{ config.app_dir }}/env -p /usr/bin/python{{ config.python_version }} creates="{{ config.app_dir }}/env"
+  become: yes
+  become_user: "{{ config.user }}"
+

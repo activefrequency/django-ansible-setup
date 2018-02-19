@@ -1,4 +1,4 @@
-app/
+/app/
 *.py
 .env
 *.log

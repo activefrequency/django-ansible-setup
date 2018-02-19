@@ -1,0 +1,10 @@
+[Service]
+User={{ config.user }}
+WorkingDirectory={{ config.app_dir }}/releases/current
+ExecStart=/bin/bash -lc '. {{ config.app_dir }}/env/bin/activate && foreman start -e {{ config.app_dir }}/conf/environ'
+Restart=always
+StandardInput=null
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=%n
+KillMode=process
